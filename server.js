@@ -5,8 +5,9 @@ const fetch = require("node-fetch");
 const app = express();
 app.use(bodyParser.json());
 
-const TITLE_ID = "YOUR_PLAYFAB_TITLE_ID";
-const SECRET_KEY = "YOUR_PLAYFAB_SECRET_KEY";
+// Use environment variables (IMPORTANT for security)
+const TITLE_ID = process.env.144B08 || "144B08";
+const SECRET_KEY = process.env.MF9NINBDIST6W39N3P35UQDQTQEMHEHXXQK6P94Z65ND7ZDDYC || "MF9NINBDIST6W39N3P35UQDQTQEMHEHXXQK6P94Z65ND7ZDDYC";
 
 app.post("/api/deleteUser", async (req, res) => {
     const playFabId = req.body.playFabId;
@@ -31,6 +32,14 @@ app.post("/api/deleteUser", async (req, res) => {
         );
 
         const data = await response.json();
+
+        if (!response.ok) {
+            return res.status(response.status).json({
+                error: "PlayFab API error",
+                details: data
+            });
+        }
+
         res.json({ success: true, data });
 
     } catch (err) {
@@ -38,6 +47,9 @@ app.post("/api/deleteUser", async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+// ✅ IMPORTANT FIX FOR RENDER
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
 });
