@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 // Use environment variables (IMPORTANT for security)
 const TITLE_ID = process.env.TITLE_ID || "144B08";
-const SECRET_KEY = process.env.SECRET_KEY || "YOUR_SECRET_KEY";
+const SECRET_KEY = process.env.SECRET_KEY || "MF9NINBDIST6W39N3P35UQDQTQEMHEHXXQK6P94Z65ND7ZDDYC";
 
 app.post("/api/deleteUser", async (req, res) => {
     const playFabId = req.body.playFabId;
